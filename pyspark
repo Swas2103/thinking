@@ -29,3 +29,39 @@ pyspark \
 
 
 https://platform.openai.com/docs/guides/prompt-engineering/six-strategies-for-getting-better-results
+
+
+
+
+
+final_loc=/mapr/datalake/optum/optuminsight/opsirsch1/opsiqra/developer/mpatra10
+script=/mapr/datalake/optum/optuminsight/opsirsch1/opsiqra/prod/attribution/consumption/external/hive_database
+
+find $script/reporting_center_prod_external.db -maxdepth 2 -type d -printf "%p,%u\n" > $final_loc/reporting_center_prod_external_tables_user_details.txt & 
+du -h --max-depth=2 -b --time $script/reporting_center_prod_external.db > $final_loc/reporting_center_prod_external_tables_size_details.txt & 
+
+echo "reporting_center_prod_external done"
+
+script=/mapr/datalake/optum/optuminsight/opsirsch1/opsiqra/prod/attribution/consumption/internal/hive_database
+
+find $script/reporting_center_prod_internal.db -maxdepth 2 -type d -printf "%p,%u\n" >> $final_loc/reporting_center_prod_internal_tables_user_details.txt & 
+du -h --max-depth=2 -b --time $script/reporting_center_prod_internal.db >> $final_loc/reporting_center_prod_internal_tables_size_details.txt & 
+
+echo "reporting_center_prod_internal done"
+
+script=/mapr/datalake/optum/optuminsight/opsirsch1/opsiqra/prod/attribution/transformation/internal/hive_database/
+
+find $script/rc_transformeddata_prod_internal.db -maxdepth 2 -type d -printf "%p,%u\n" >> $final_loc/rc_transformeddata_prod_internal_tables_user_details.txt & 
+du -h --max-depth=2 -b --time $script/rc_transformeddata_prod_internal.db >> $final_loc/rc_transformeddata_prod_internal_tables_size_details.txt & 
+
+
+echo "rc_transformeddata_prod_internal done"
+
+
+script=/mapr/datalake/optum/optuminsight/opsirsch1/opsiqra/prod/attribution/transformation/external/hive_database/
+
+find $script/rc_transformeddata_prod_external.db -maxdepth 2 -type d -printf "%p,%u\n" >> $final_loc/rc_transformeddata_prod_external_tables_user_details.txt & 
+du -h --max-depth=2 -b --time $script/rc_transformeddata_prod_external.db >> $final_loc/rc_transformeddata_prod_external_tables_size_details.txt & 
+
+
+echo "rc_transformeddata_prod_external done"
